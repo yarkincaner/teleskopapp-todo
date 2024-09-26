@@ -4,28 +4,51 @@ import Icons from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/inputs/input'
 import { useAddTodo } from '@/lib/mutations'
-import { FC } from 'react'
+import { TodoRequest, TodoValidator } from '@/lib/validators/todo'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FC, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 type Props = {}
 
 const Form: FC<Props> = ({}) => {
-  const { mutate: handleSubmit, isPending, error } = useAddTodo()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<TodoRequest>({
+    resolver: zodResolver(TodoValidator),
+    defaultValues: {
+      title: ''
+    }
+  })
+
+  const { mutate: submitTodo, isPending, error } = useAddTodo()
+
+  const onSubmit = async (data: TodoRequest) => {
+    submitTodo(data.title)
+  }
+
+  useEffect(() => {
+    if (errors.title) {
+      toast.error(errors.title.message)
+    }
+  }, [errors])
 
   return (
     <form
       className='flex w-full items-center space-x-2'
-      onSubmit={e => {
-        e.preventDefault()
-        console.log(e.target)
-      }}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        id='title'
-        name='title'
+        {...register('title')}
         placeholder='Make a sandwich...'
         autoFocus
+        error={errors.title}
+        disabled={isPending}
       />
-      <Button type='submit' className='h-full'>
+      <Button type='submit' className='h-full' disabled={isPending}>
         <Icons.plus />
       </Button>
     </form>
