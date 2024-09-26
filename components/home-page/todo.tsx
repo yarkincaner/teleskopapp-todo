@@ -1,7 +1,6 @@
 import Icons from '@/components/icons'
 import { Button } from '@/components/ui/button'
 import { useCompleteTodo, useDeleteTodo } from '@/lib/mutations'
-import { useTodoStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
 import { ITodo } from '@/types/todo'
 import { FC } from 'react'
