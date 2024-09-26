@@ -4,6 +4,10 @@ import { create } from 'zustand'
 export const useTodoStore = create<ITodoState>(set => ({
   todos: [],
   setTodos: todos => set({ todos }),
+  addTodo: todo =>
+    set(state => ({
+      todos: [...state.todos, todo]
+    })),
   updateTodo: (id, completed) =>
     set(state => ({
       todos: state.todos.map(todo =>

@@ -1,17 +1,14 @@
 'use client'
 
 import Icons from '@/components/icons'
-import { Button } from '@/components/ui/button'
-import Search from '@/components/ui/inputs/search'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { useGetTodos } from '@/lib/queries'
+import { useTodoStore } from '@/lib/store'
 import { FC } from 'react'
 import Todo from './todo'
-import { useTodoStore } from '@/lib/store'
 
 type Props = {}
 
-const Home: FC<Props> = ({}) => {
+const TodoList: FC<Props> = ({}) => {
   const { isLoading, error } = useGetTodos()
   const todos = useTodoStore(state => state.todos)
 
@@ -28,4 +25,4 @@ const Home: FC<Props> = ({}) => {
   )
 }
 
-export default Home
+export default TodoList

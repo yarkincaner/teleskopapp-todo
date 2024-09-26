@@ -1,10 +1,11 @@
-import type { Metadata } from 'next'
-import localFont from 'next/font/local'
-import './globals.css'
+import Header from '@/components/header'
 import Providers from '@/components/providers'
 import { ThemeProvider } from '@/components/theme/theme-provider'
 import ThemeSwitcher from '@/components/theme/theme-switcher'
+import type { Metadata } from 'next'
+import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
+import './globals.css'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -40,7 +41,13 @@ export default function RootLayout({
         >
           <Providers>
             <main className='flex min-h-screen items-center justify-center p-6'>
-              {children}
+              <div className='flex h-screen max-h-[620px] w-full max-w-xl flex-col rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
+                <div className='absolute z-20 -ml-4 -mt-3'>
+                  <ThemeSwitcher />
+                </div>
+                <Header />
+                {children}
+              </div>
             </main>
             <Toaster richColors />
           </Providers>
