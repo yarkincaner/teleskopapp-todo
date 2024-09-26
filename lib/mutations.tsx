@@ -1,10 +1,33 @@
 'use client'
 
-import { completeTodoAsync, deleteTodoAsync } from '@/actions/todos'
+import {
+  addTodoAsync,
+  completeTodoAsync,
+  deleteTodoAsync
+} from '@/actions/todos'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useTodoStore } from './store'
 import { ITodo } from '@/types/todo'
+import { useRouter } from 'next/navigation'
+
+export const useAddTodo = () => {
+  const addTodo = useTodoStore(state => state.addTodo)
+  const router = useRouter()
+
+  return useMutation({
+    mutationKey: ['add-todo'],
+    mutationFn: async (title: string) => {
+      const res = await addTodoAsync(title)
+      return res
+    },
+    onSuccess: data => {
+      addTodo(data)
+      toast.success(`Todo ${data.title} is added to your list!`)
+      router.push('/')
+    }
+  })
+}
 
 export const useCompleteTodo = (todo: ITodo) => {
   const updateTodo = useTodoStore(state => state.updateTodo)

@@ -1,3 +1,4 @@
+import { getRandomUserId } from '@/lib/utils'
 import { ITodo } from '@/types/todo'
 import axios from 'axios'
 
@@ -42,6 +43,20 @@ export const deleteTodoAsync = async (todoId: number) => {
     apiUrl.pathname = `/todos/${todoId}`
     const res = await axios.delete(apiUrl.toString())
     return res
+  } catch (err) {
+    throw new Error('Something went wrong!')
+  }
+}
+
+export const addTodoAsync = async (title: string) => {
+  try {
+    const res = await axios.post(apiUrl.toString(), {
+      title,
+      userId: getRandomUserId(),
+      completed: false
+    })
+
+    return res.data as ITodo
   } catch (err) {
     throw new Error('Something went wrong!')
   }
