@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import { Toaster } from 'sonner'
 import './globals.css'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -46,7 +47,9 @@ export default function RootLayout({
                   <ThemeSwitcher />
                 </div>
                 <Header />
-                {children}
+                <ScrollArea className='flex min-w-full flex-grow items-center justify-center place-self-center justify-self-center rounded-b-lg bg-secondary/50 p-2 sm:p-6'>
+                  {children}
+                </ScrollArea>
               </div>
             </main>
             <Toaster richColors />

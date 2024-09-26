@@ -19,11 +19,12 @@ const Header: FC<Props> = ({}) => {
       <Link
         className={cn(
           buttonVariants({ variant: 'secondary' }),
-          'justify-self-end shadow'
+          'space-x-0 justify-self-end shadow'
         )}
         href={'/new'}
       >
-        Add Todo <Icons.plus className='ml-1.5 size-4' />
+        <span className='mr-1.5 hidden sm:block'>Add Todo</span>{' '}
+        <Icons.plus className='ml-1.5 size-4' />
       </Link>
     </div>
   )

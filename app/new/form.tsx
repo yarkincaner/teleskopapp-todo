@@ -48,7 +48,7 @@ const Form: FC<Props> = ({}) => {
         error={errors.title}
         disabled={isPending}
       />
-      <Button type='submit' className='h-full' disabled={isPending}>
+      <Button type='submit' className='h-full p-3' disabled={isPending}>
         <Icons.plus />
       </Button>
     </form>
